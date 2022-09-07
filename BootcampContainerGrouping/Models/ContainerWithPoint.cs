@@ -2,6 +2,8 @@
 
 namespace BootcampContainerGrouping.Models
 {
+
+    //The class I created to transfer the data in the container class to the Point
     public class ContainerWithPoint
     {
         public  long Id { get; set; }

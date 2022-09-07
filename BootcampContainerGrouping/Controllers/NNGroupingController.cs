@@ -70,55 +70,55 @@ namespace BootcampContainerGrouping.Controllers
                 return groups;
             }
             int count = 0;
-            int element = 0; 
-            int clusterRemain = numberOfGroups;
+            int component = 0; 
+            int GroupingData = numberOfGroups;
 
             double numberOfContainers = NumberOfElementsInCluster(orderedContainers.Count, numberOfGroups); 
 
             foreach (var container in orderedContainers) 
             {
-                element++; 
+                component++; 
                 count++; 
 
-                if (NewMethod(count, clusterRemain, numberOfContainers)) 
+                if (ifStatement(count, GroupingData, numberOfContainers)) 
                 {
-                    groups.Add(orderedContainers.GetRange(element - count, count)); 
-                    clusterRemain--; 
+                    groups.Add(orderedContainers.GetRange(component - count, count));
+                    GroupingData--; 
                     count = 0; 
                 }
-                if (clusterRemain == 1 && element == orderedContainers.Count)
+                if (GroupingData == 1 && component == orderedContainers.Count)
                 {
-                    groups.Add(orderedContainers.GetRange(element - count, count));
-                    clusterRemain--;
+                    groups.Add(orderedContainers.GetRange(component - count, count));
+                    GroupingData--;
                     count--;
                 }
             }
             return groups;
         }
 
-        private static bool NewMethod(int count, int clusterRemain, double numberOfContainers)
+        private static bool ifStatement(int count, int GroupingData, double numberOfContainers)
         {
-            return count == numberOfContainers && clusterRemain > 1;
+            return count == numberOfContainers && GroupingData > 1;
         }
 
         private double NumberOfElementsInCluster(double numberOfElements, double numberOfClusters) 
         {
             double result = numberOfElements / numberOfClusters;
-            double numberAndHalf = 0.5;
+            double HalfOfNumber = 0.5;
             for (int i = 1; i < numberOfElements; i++) 
             {
 
-                if (result == numberAndHalf) 
+                if (result == HalfOfNumber) 
                 {
                     result -= 0.5;
                 }
-                numberAndHalf += i;
+                HalfOfNumber += i;
             }
 
             double numberOfElementsInCluster = Math.Round(result);
             return numberOfElementsInCluster;
-        } 
-
+        }
+        //the section where the data is filled into the point
         public static Point[] GetNeighbors(Point point, int h, Point[] neighbors)
         {
             return neighbors
@@ -133,20 +133,6 @@ namespace BootcampContainerGrouping.Controllers
         {
             return Math.Pow(originPoint.X - destinationPoint.X, 2)
                 + Math.Pow(originPoint.Y - destinationPoint.Y, 2);
-        }
-
-        //algorithm that calculates how many full turns of the big loop are made
-        private static int GetLoopCount(int ListSize, int GroupSize)
-        {
-            if (ListSize % GroupSize == 0)
-            {
-                return ListSize / GroupSize;
-            }
-            else
-            {
-                return (ListSize / GroupSize) + 1;
-            }
-
         }
 
     }

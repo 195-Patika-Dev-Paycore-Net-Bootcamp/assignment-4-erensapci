@@ -7,6 +7,8 @@ using System.Net;
 using WasteCollectionSystem.Context;
 using WasteCollectionSystem.Models;
 
+//I left this controller class so you can understand the difference from my newly created NNGroupingController
+
 namespace BootcampContainerGrouping.Controllers
 {
     [Route("api/[controller]")]

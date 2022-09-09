@@ -34,12 +34,15 @@ namespace BootcampContainerGrouping.Controllers
             neighbors[0] = new Point(0, 0);
             var unOrderedContainers = new List<ContainerWithPoint>();
 
+            //The part we fill in the point where we have created our data
             for (int i = 0; i < containerList.Count; i++)
             {
                 neighbors[i+1] = new Point((int)containerList[i].Latitude, (int)containerList[i].Longitude);
                 var newContainerWPoint = new ContainerWithPoint();
                 newContainerWPoint.Latitude = (int)containerList[i].Latitude;
                 newContainerWPoint.Longitude = (int)containerList[i].Longitude;
+
+                //The section where we place the latitude and longitude information, which we define as double, as integer
                 newContainerWPoint.Point = new Point((int)containerList[i].Latitude, (int)containerList[i].Longitude);
                 newContainerWPoint.VehicleId = containerList[i].VehicleId;
                 newContainerWPoint.Id = containerList[i].Id;
@@ -49,9 +52,10 @@ namespace BootcampContainerGrouping.Controllers
             }
 
             var h = 1000;
+            //the starting point we have created
             var sourcePoint = new Point(0, 0);
             var orderedContainers = new List<ContainerWithPoint>();
-
+            //the section where we place close neighbors in the same group
             var nearestNeighbors = GetNeighbors(sourcePoint, h, neighbors);
             for(int i = 0; i < nearestNeighbors.Length; i++)
             {
@@ -73,14 +77,14 @@ namespace BootcampContainerGrouping.Controllers
             int component = 0; 
             int GroupingData = numberOfGroups;
 
-            double numberOfContainers = NumberOfElementsInCluster(orderedContainers.Count, numberOfGroups); 
-
+            double numberOfContainers = NumberOfElementsInCluster(orderedContainers.Count, numberOfGroups);
+            //the part where the groupings are made
             foreach (var container in orderedContainers) 
             {
                 component++; 
                 count++; 
 
-                if (ifStatement(count, GroupingData, numberOfContainers)) 
+                if (IfStatement(count, GroupingData, numberOfContainers)) 
                 {
                     groups.Add(orderedContainers.GetRange(component - count, count));
                     GroupingData--; 
@@ -96,18 +100,17 @@ namespace BootcampContainerGrouping.Controllers
             return groups;
         }
 
-        private static bool ifStatement(int count, int GroupingData, double numberOfContainers)
+        private static bool IfStatement(int count, int GroupingData, double numberOfContainers)
         {
             return count == numberOfContainers && GroupingData > 1;
         }
 
-        private double NumberOfElementsInCluster(double numberOfElements, double numberOfClusters) 
+        private static double NumberOfElementsInCluster(double numberOfElements, double numberOfClusters) 
         {
             double result = numberOfElements / numberOfClusters;
             double HalfOfNumber = 0.5;
             for (int i = 1; i < numberOfElements; i++) 
             {
-
                 if (result == HalfOfNumber) 
                 {
                     result -= 0.5;

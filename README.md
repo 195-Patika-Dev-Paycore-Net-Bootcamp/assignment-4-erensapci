@@ -1,6 +1,6 @@
 # assignment-4-erensapci 
 
-# Cluster Algorithm For Grouping Nearest Container
+# Cluster Algorithm For Grouping Nearest Containers
 
 * In this project, a project in which the closest containers are grouped by making use of the k-means algorithm, which is one of the clustering algorithms, has been implemented.
 
